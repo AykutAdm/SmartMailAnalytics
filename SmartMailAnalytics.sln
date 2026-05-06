@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36717.8
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{C4C8AB58-502A-4288-9875-8421EC4B41E8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{2B11AD3B-DB83-411C-99E5-6A96F3A3F04D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartMailAnalytics.API", "Presentation\SmartMailAnalytics.API\SmartMailAnalytics.API.csproj", "{7E9FF95A-2D6E-4FB5-BA1F-182911B672AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartMailAnalytics.Application", "Core\SmartMailAnalytics.Application\SmartMailAnalytics.Application.csproj", "{87B9768D-5553-4C2C-9D5A-9B6D452B0274}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartMailAnalytics.Domain", "Core\SmartMailAnalytics.Domain\SmartMailAnalytics.Domain.csproj", "{43FE0882-7B67-4C86-BB55-6F5044649083}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartMailAnalytics.Infrastructure", "Infrastructure\SmartMailAnalytics.Infrastructure\SmartMailAnalytics.Infrastructure.csproj", "{17888109-E05C-4EA9-BA53-D631AAB65E7A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7E9FF95A-2D6E-4FB5-BA1F-182911B672AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E9FF95A-2D6E-4FB5-BA1F-182911B672AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E9FF95A-2D6E-4FB5-BA1F-182911B672AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E9FF95A-2D6E-4FB5-BA1F-182911B672AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87B9768D-5553-4C2C-9D5A-9B6D452B0274}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87B9768D-5553-4C2C-9D5A-9B6D452B0274}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87B9768D-5553-4C2C-9D5A-9B6D452B0274}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87B9768D-5553-4C2C-9D5A-9B6D452B0274}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43FE0882-7B67-4C86-BB55-6F5044649083}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43FE0882-7B67-4C86-BB55-6F5044649083}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43FE0882-7B67-4C86-BB55-6F5044649083}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43FE0882-7B67-4C86-BB55-6F5044649083}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17888109-E05C-4EA9-BA53-D631AAB65E7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17888109-E05C-4EA9-BA53-D631AAB65E7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17888109-E05C-4EA9-BA53-D631AAB65E7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17888109-E05C-4EA9-BA53-D631AAB65E7A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7E9FF95A-2D6E-4FB5-BA1F-182911B672AB} = {2B11AD3B-DB83-411C-99E5-6A96F3A3F04D}
+		{87B9768D-5553-4C2C-9D5A-9B6D452B0274} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{43FE0882-7B67-4C86-BB55-6F5044649083} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{17888109-E05C-4EA9-BA53-D631AAB65E7A} = {C4C8AB58-502A-4288-9875-8421EC4B41E8}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {143FD140-D165-40D2-8000-0EEDFE57F08E}
+	EndGlobalSection
+EndGlobal
