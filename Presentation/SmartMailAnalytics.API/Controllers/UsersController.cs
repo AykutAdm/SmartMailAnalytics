@@ -1,10 +1,9 @@
-﻿
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SmartMailAnalytics.Application.DTOs.UserDtos;
 using SmartMailAnalytics.Application.Services.UserServices;
 
 
-namespace SmartUserAnalytics.API.Controllers
+namespace SmartMailAnalytics.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
