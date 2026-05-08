@@ -18,9 +18,9 @@ namespace SmartMailAnalytics.Application.Services.MailServices
             _mailRepository = mailRepository;
         }
 
-        public async Task<List<ResultMailDto>> GetMailsAsync()
+        public async Task<List<ResultMailDto>> GetMailsAsync(int page = 1)
         {
-            var values = await _mailRepository.GetMailsAsync();
+            var values = await _mailRepository.GetMailsAsync(page);
             return values.Select(x => new ResultMailDto
             {
                 MailId = x.MailId,
@@ -82,6 +82,23 @@ namespace SmartMailAnalytics.Application.Services.MailServices
         public async Task DeleteMailAsync(int id)
         {
             await _mailRepository.DeleteMailAsync(id);
+        }
+
+        public async Task<List<ResultMailDto>> GetMailsByFilterAsync(ResultMailFilterDto filter)
+        {
+            var values = await _mailRepository.GetMailsByFilterAsync(filter);
+            return values.Select(x => new ResultMailDto
+            {
+                MailId = x.MailId,
+                SenderEmail = x.SenderEmail,
+                ReceiverEmail = x.ReceiverEmail,
+                Subject = x.Subject,
+                Content = x.Content,
+                IsSpam = x.IsSpam,
+                CreatedDate = x.CreatedDate,
+                MailCategoryId = x.MailCategoryId,
+                UserId = x.UserId,
+            }).ToList();
         }
     }
 }

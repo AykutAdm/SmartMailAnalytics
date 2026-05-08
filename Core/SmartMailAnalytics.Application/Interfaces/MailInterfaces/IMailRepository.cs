@@ -1,4 +1,5 @@
-﻿using SmartMailAnalytics.Domain.Entities;
+﻿using SmartMailAnalytics.Application.DTOs.MailDtos;
+using SmartMailAnalytics.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +10,11 @@ namespace SmartMailAnalytics.Application.Interfaces.MailInterfaces
 {
     public interface IMailRepository
     {
-        Task<List<Mail>> GetMailsAsync();
+        Task<List<Mail>> GetMailsAsync(int page = 1);
         Task<Mail> GetByIdAsync(int id);
         Task AddMailAsync(Mail mail);
         Task UpdateMailAsync(Mail mail);
         Task DeleteMailAsync(int id);
+        Task<List<Mail>> GetMailsByFilterAsync(ResultMailFilterDto filter);
     }
 }

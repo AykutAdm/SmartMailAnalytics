@@ -14,6 +14,16 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+// CORS Configuration
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("SmartMailAnalyticsPolicy", builder =>
+    {
+        builder.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
+});
 
 builder.Services.AddScoped<DbConnectionFactory>(sp =>
 {
@@ -45,6 +55,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+// CORS Middleware
+app.UseCors("SmartMailAnalyticsPolicy");
 
 app.UseAuthorization();
 

@@ -17,9 +17,9 @@ namespace SmartMailAnalytics.API.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> GetAllMails()
+        public async Task<IActionResult> GetAllMails(int page = 1)
         {
-            var values = await _mailService.GetMailsAsync();
+            var values = await _mailService.GetMailsAsync(page);
             return Ok(values);
         }
 
@@ -49,6 +49,13 @@ namespace SmartMailAnalytics.API.Controllers
         {
             await _mailService.DeleteMailAsync(id);
             return Ok("Mail deleted successfully");
+        }
+
+        [HttpGet("GetMailsByFilter")]
+        public async Task<IActionResult> GetMailsByFilterAsync([FromQuery] ResultMailFilterDto filter)
+        {
+            var values = await _mailService.GetMailsByFilterAsync(filter);
+            return Ok(values);
         }
     }
 }
