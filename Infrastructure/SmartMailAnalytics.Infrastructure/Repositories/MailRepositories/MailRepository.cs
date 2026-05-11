@@ -60,6 +60,22 @@ namespace SmartMailAnalytics.Infrastructure.Repositories.MailRepositories
             }
         }
 
+        public async Task<int> GetMailCountAsync()
+        {
+            string query = "SELECT COUNT(*) FROM Mails";
+            using var connection = _connectionFactory.CreateConnection();
+            return await connection.ExecuteScalarAsync<int>(query);
+        }
+
+        public async Task<int> GetMailCountByDateAsync(DateTime date)
+        {
+            string query = "SELECT COUNT(*) FROM Mails WHERE CreatedDate >= @Date";
+            var parameters = new DynamicParameters();
+            parameters.Add("@Date", date);
+            using var connection = _connectionFactory.CreateConnection();
+            return await connection.ExecuteScalarAsync<int>(query, parameters);
+        }
+
         public async Task<List<ResultMailDto>> GetMailsAsync(int page = 1)
         {
             var offset = (page - 1) * 12;

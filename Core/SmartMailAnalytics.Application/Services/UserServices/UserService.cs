@@ -1,4 +1,5 @@
 ﻿using SmartMailAnalytics.Application.DTOs.UserDtos;
+using SmartMailAnalytics.Application.Interfaces.MailInterfaces;
 using SmartMailAnalytics.Application.Interfaces.UserInterfaces;
 using SmartMailAnalytics.Domain.Entities;
 using System;
@@ -65,6 +66,11 @@ namespace SmartMailAnalytics.Application.Services.UserServices
         public async Task DeleteUserAsync(int id)
         {
             await _userRepository.DeleteUserAsync(id);
+        }
+
+        public async Task<int> GetUserCountAsync()
+        {
+            return await _userRepository.GetUserCountAsync();
         }
     }
 }

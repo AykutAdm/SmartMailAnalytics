@@ -88,5 +88,15 @@ namespace SmartMailAnalytics.Application.Services.MailServices
         {
             return await _mailRepository.GetMailsByFilterAsync(filter);
         }
+
+        public async Task<int> GetMailCountByDateAsync(DateTime date)
+        {
+            return await _mailRepository.GetMailCountByDateAsync(date);
+        }
+
+        public async Task<int> GetMailCountAsync()
+        {
+            return await _mailRepository.GetMailCountAsync();
+        }
     }
 }

@@ -17,5 +17,7 @@ namespace SmartMailAnalytics.Application.Interfaces.MailInterfaces
         Task DeleteMailAsync(int id);
         Task<List<ResultMailDto>> GetMailsByFilterAsync(ResultMailFilterDto filter);
         Task UpdateSpamStatusAsync(int mailId, bool isSpam);
+        Task<int> GetMailCountAsync();
+        Task<int> GetMailCountByDateAsync(DateTime date);
     }
 }

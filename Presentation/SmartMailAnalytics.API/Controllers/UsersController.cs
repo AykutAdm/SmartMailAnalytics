@@ -50,5 +50,12 @@ namespace SmartMailAnalytics.API.Controllers
             await _userService.DeleteUserAsync(id);
             return Ok("User deleted successfully");
         }
+
+        [HttpGet("GetUserCount")]
+        public async Task<IActionResult> GetUserCount()
+        {
+            var values = await _userService.GetUserCountAsync();
+            return Ok(values);
+        }
     }
 }

@@ -57,5 +57,20 @@ namespace SmartMailAnalytics.API.Controllers
             var values = await _mailService.GetMailsByFilterAsync(filter);
             return Ok(values);
         }
+
+        [HttpGet("GetMailCount")]
+        public async Task<IActionResult> GetMailCount()
+        {
+            var values = await _mailService.GetMailCountAsync();
+            return Ok(values);
+        }
+
+        [HttpGet("GetMailCountByDate")]
+        public async Task<IActionResult> GetMailCountByDate()
+        {
+            var oneWeekAgo = DateTime.UtcNow.AddDays(-7);
+            var values = await _mailService.GetMailCountByDateAsync(oneWeekAgo);
+            return Ok(values);
+        }
     }
 }

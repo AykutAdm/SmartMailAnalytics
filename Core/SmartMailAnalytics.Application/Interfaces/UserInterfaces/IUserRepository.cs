@@ -14,5 +14,6 @@ namespace SmartMailAnalytics.Application.Interfaces.UserInterfaces
         Task AddUserAsync(User user);
         Task UpdateUserAsync(User user);
         Task DeleteUserAsync(int id);
+        Task<int> GetUserCountAsync();
     }
 }

@@ -75,5 +75,12 @@ namespace SmartMailAnalytics.Infrastructure.Repositories.UserRepositories
                 await connection.ExecuteAsync(query, parameters);
             }
         }
+
+        public async Task<int> GetUserCountAsync()
+        {
+            string query = "SELECT COUNT(*) FROM Users";
+            using var connection = _connectionFactory.CreateConnection();
+            return await connection.ExecuteScalarAsync<int>(query);
+        }
     }
 }
