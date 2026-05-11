@@ -7,6 +7,7 @@ SmartMailAnalytics, ASP.NET Core 8.0 ile, kurumsal ortamlarda artan spam mail so
 ## Özellikler
 
 - E-posta kayıtları için CRUD işlemleri
+- 1 milyondan fazla veri ile yüksek performanslı veri işleme, filtreleme ve görselleştirme.
 - Filtreleme ve sayfalama (her sayfada 12 kayıt)
 - **RabbitMQ** ile asenkron spam analizi
 - **ML.NET** tabanlı ikili sınıflandırma modeli
@@ -64,7 +65,7 @@ SmartMailAnalytics/
 ---
 
 ## ML.NET Model
-
+- 1 milyondan fazla etiketli mail verisiyle eğitilmiştir.
 - Konu (`Subject`) ve içerik (`Content`) metinleri `FeaturizeText` ile sayısal vektörlere dönüştürülür.
 - Vektörler birleştirilip **FastTree** tabanlı ikili sınıflandırma ile eğitilir.
 - Model ilk çalıştırmada `spam_model.zip` olarak diske kaydedilir, sonraki çalışmalarda direkt yüklenir.
