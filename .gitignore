@@ -362,4 +362,6 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 
+# Yerel ML veri seti — GitHub tek dosya limiti 100 MB
+spam_train2.csv
 SmartMailAnalytics.MLWorker/spam_train2.csv
