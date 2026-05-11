@@ -17,9 +17,9 @@ namespace SmartMailAnalytics.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllUsers()
+        public async Task<IActionResult> GetAllUsers(int page = 1)
         {
-            var values = await _userService.GetUsersAsync();
+            var values = await _userService.GetUsersAsync(page);
             return Ok(values);
         }
 

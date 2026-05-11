@@ -1,0 +1,86 @@
+/**
+ * Mail Admin — design tokens (dark-first, light optional)
+ */
+:root {
+  color-scheme: dark light;
+
+  --font-sans: system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, "Cascadia Code", "Segoe UI Mono", monospace;
+
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 22px;
+
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.35);
+  --shadow-md: 0 8px 24px rgb(0 0 0 / 0.45);
+  --shadow-glow: 0 0 40px rgb(56 189 248 / 0.12);
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-8: 48px;
+
+  --transition-fast: 160ms ease;
+  --transition-smooth: 280ms cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Dark (default) */
+  --bg-root: #0b0f14;
+  --bg-surface: #121922;
+  --bg-elevated: #161f2c;
+  --bg-muted: #1a2535;
+  --border-subtle: rgb(255 255 255 / 0.06);
+  --border-strong: rgb(255 255 255 / 0.1);
+
+  --text-primary: #e8eef6;
+  --text-secondary: #9fb0c8;
+  --text-muted: #6b7c94;
+
+  --accent: #38bdf8;
+  --accent-dim: rgb(56 189 248 / 0.15);
+  --accent-ring: rgb(56 189 248 / 0.35);
+
+  --positive: #34d399;
+  --positive-dim: rgb(52 211 153 / 0.12);
+  --warning: #fbbf24;
+  --warning-dim: rgb(251 191 36 / 0.12);
+  --danger: #f87171;
+  --danger-dim: rgb(248 113 113 / 0.12);
+
+  --chart-1: #38bdf8;
+  --chart-2: #818cf8;
+  --chart-3: #34d399;
+  --chart-4: #fbbf24;
+  --chart-5: #f472b6;
+
+  --sidebar-w: 260px;
+  --header-h: 64px;
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+  --bg-root: #f4f6fa;
+  --bg-surface: #ffffff;
+  --bg-elevated: #ffffff;
+  --bg-muted: #eef2f8;
+  --border-subtle: rgb(15 23 42 / 0.08);
+  --border-strong: rgb(15 23 42 / 0.12);
+
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+
+  --accent-dim: rgb(14 165 233 / 0.12);
+  --accent-ring: rgb(14 165 233 / 0.28);
+
+  --positive-dim: rgb(16 185 129 / 0.12);
+  --warning-dim: rgb(245 158 11 / 0.12);
+  --danger-dim: rgb(239 68 68 / 0.1);
+
+  --shadow-sm: 0 1px 2px rgb(15 23 42 / 0.06);
+  --shadow-md: 0 12px 40px rgb(15 23 42 / 0.08);
+  --shadow-glow: 0 0 48px rgb(14 165 233 / 0.08);
+}

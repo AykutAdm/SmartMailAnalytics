@@ -1,5 +1,7 @@
 ﻿using SmartMailAnalytics.Application.DTOs.MailDtos;
+using SmartMailAnalytics.Application.DTOs.RabbitMqDtos;
 using SmartMailAnalytics.Application.Interfaces.MailInterfaces;
+using SmartMailAnalytics.Application.Services.RabbitMqServices;
 using SmartMailAnalytics.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -12,27 +14,17 @@ namespace SmartMailAnalytics.Application.Services.MailServices
     public class MailService
     {
         private readonly IMailRepository _mailRepository;
+        private readonly RabbitMqPublisher _publisher;
 
-        public MailService(IMailRepository mailRepository)
+        public MailService(IMailRepository mailRepository, RabbitMqPublisher publisher)
         {
             _mailRepository = mailRepository;
+            _publisher = publisher;
         }
 
         public async Task<List<ResultMailDto>> GetMailsAsync(int page = 1)
         {
-            var values = await _mailRepository.GetMailsAsync(page);
-            return values.Select(x => new ResultMailDto
-            {
-                MailId = x.MailId,
-                SenderEmail = x.SenderEmail,
-                ReceiverEmail = x.ReceiverEmail,
-                Subject = x.Subject,
-                Content = x.Content,
-                IsSpam = x.IsSpam,
-                CreatedDate = x.CreatedDate,
-                MailCategoryId = x.MailCategoryId,
-                UserId = x.UserId,
-            }).ToList();
+            return await _mailRepository.GetMailsAsync(page);
         }
 
         public async Task<GetMailByIdDto> GetByIdAsync(int id)
@@ -67,6 +59,14 @@ namespace SmartMailAnalytics.Application.Services.MailServices
             };
 
             await _mailRepository.AddMailAsync(value);
+
+            // RabbitMQ'ya gönder
+            _publisher.Publish(new SpamRequestDto
+            {
+                MailId = value.MailId,
+                Subject = value.Subject,
+                Content = value.Content
+            });
         }
 
         public async Task UpdateMailAsync(UpdateMailDto dto)
@@ -86,19 +86,7 @@ namespace SmartMailAnalytics.Application.Services.MailServices
 
         public async Task<List<ResultMailDto>> GetMailsByFilterAsync(ResultMailFilterDto filter)
         {
-            var values = await _mailRepository.GetMailsByFilterAsync(filter);
-            return values.Select(x => new ResultMailDto
-            {
-                MailId = x.MailId,
-                SenderEmail = x.SenderEmail,
-                ReceiverEmail = x.ReceiverEmail,
-                Subject = x.Subject,
-                Content = x.Content,
-                IsSpam = x.IsSpam,
-                CreatedDate = x.CreatedDate,
-                MailCategoryId = x.MailCategoryId,
-                UserId = x.UserId,
-            }).ToList();
+            return await _mailRepository.GetMailsByFilterAsync(filter);
         }
     }
 }

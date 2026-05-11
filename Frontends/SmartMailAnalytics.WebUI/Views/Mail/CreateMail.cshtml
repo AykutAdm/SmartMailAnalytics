@@ -1,0 +1,202 @@
+﻿@model CreateMailDto
+@{
+    ViewData["Title"] = "Yeni Mail";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style>
+    @@import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+    :root {
+        --bg: #0d0f14;
+        --surface: #13161e;
+        --surface-2: #1a1e2a;
+        --border: #252a38;
+        --accent: #4f8ef7;
+        --accent-soft: rgba(79,142,247,0.08);
+        --muted: #4a5168;
+        --text: #e2e6f0;
+        --text-sub: #7b849c;
+        --radius: 14px;
+        --radius-sm: 8px;
+    }
+
+    .mail-page {
+        font-family: 'Sora', sans-serif;
+        background: var(--bg);
+        min-height: 100vh;
+        padding: 36px 28px 60px;
+        color: var(--text);
+    }
+
+    .mail-header {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        margin-bottom: 28px;
+        gap: 16px;
+        flex-wrap: wrap;
+    }
+
+    .mail-header-left h1 {
+        font-size: 22px;
+        font-weight: 600;
+        letter-spacing: -0.3px;
+        margin: 0 0 4px;
+        color: var(--text);
+    }
+
+    .mail-header-left p {
+        font-size: 13px;
+        color: var(--text-sub);
+        margin: 0;
+        font-weight: 300;
+    }
+
+    .filter-btn {
+        display: inline-flex;
+        align-items: center;
+        padding: 7px 16px;
+        border-radius: 20px;
+        border: 1px solid var(--border);
+        background: var(--surface);
+        color: var(--text-sub);
+        font-size: 12.5px;
+        font-family: 'Sora', sans-serif;
+        cursor: pointer;
+        transition: all .18s;
+        text-decoration: none;
+        font-weight: 400;
+    }
+
+        .filter-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: var(--accent-soft);
+        }
+
+    .filter-btn--primary {
+        background: var(--accent-soft);
+        border-color: rgba(79,142,247,0.35);
+        color: var(--accent);
+    }
+
+    .mail-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 26px 28px 32px;
+        max-width: 720px;
+    }
+
+    .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 18px 22px;
+    }
+
+    @@media (max-width: 640px) {
+        .form-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    .form-field {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .form-field--full {
+        grid-column: 1 / -1;
+    }
+
+    .form-field label {
+        font-size: 11.5px;
+        font-weight: 500;
+        color: var(--text-sub);
+        letter-spacing: 0.4px;
+        text-transform: uppercase;
+    }
+
+    .form-field input,
+    .form-field textarea {
+        padding: 10px 14px;
+        background: var(--surface-2);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+        color: var(--text);
+        font-size: 13.5px;
+        font-family: 'Sora', sans-serif;
+        outline: none;
+        transition: border-color .18s;
+        box-sizing: border-box;
+    }
+
+        .form-field input:focus,
+        .form-field textarea:focus {
+            border-color: var(--accent);
+        }
+
+    .form-field textarea {
+        min-height: 140px;
+        resize: vertical;
+    }
+
+    .form-actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 24px;
+        flex-wrap: wrap;
+    }
+
+        .form-actions button[type="submit"] {
+            border: none;
+            cursor: pointer;
+        }
+</style>
+
+<div class="mail-page">
+    <div class="mail-header">
+        <div class="mail-header-left">
+            <h1>Yeni mail</h1>
+            <p>Gönderen, alıcı ve içerik bilgilerini girin</p>
+        </div>
+        <a asp-action="MailList" class="filter-btn">← Liste</a>
+    </div>
+
+    <div class="mail-card">
+        <form asp-action="CreateMail" method="post">
+            <div class="form-grid">
+                <div class="form-field">
+                    <label asp-for="UserId">Kullanıcı ID</label>
+                    <input asp-for="UserId" type="number" />
+                </div>
+                <div class="form-field">
+                    <label asp-for="MailCategoryId">Kategori ID</label>
+                    <input asp-for="MailCategoryId" type="number" />
+                </div>
+                <div class="form-field form-field--full">
+                    <label asp-for="SenderEmail">Gönderen</label>
+                    <input asp-for="SenderEmail" type="email" autocomplete="off" />
+                </div>
+                <div class="form-field form-field--full">
+                    <label asp-for="ReceiverEmail">Alıcı</label>
+                    <input asp-for="ReceiverEmail" type="email" autocomplete="off" />
+                </div>
+                <div class="form-field form-field--full">
+                    <label asp-for="Subject">Konu</label>
+                    <input asp-for="Subject" type="text" />
+                </div>
+                <div class="form-field form-field--full">
+                    <label asp-for="Content">İçerik</label>
+                    <textarea asp-for="Content"></textarea>
+                </div>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="filter-btn filter-btn--primary">Kaydet</button>
+                <a asp-action="MailList" class="filter-btn">İptal</a>
+            </div>
+        </form>
+    </div>
+</div>

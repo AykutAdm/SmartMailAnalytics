@@ -4,6 +4,7 @@ using SmartMailAnalytics.Application.Interfaces.MailInterfaces;
 using SmartMailAnalytics.Application.Interfaces.UserInterfaces;
 using SmartMailAnalytics.Application.Services.MailCategoryServices;
 using SmartMailAnalytics.Application.Services.MailServices;
+using SmartMailAnalytics.Application.Services.RabbitMqServices;
 using SmartMailAnalytics.Application.Services.UserServices;
 using SmartMailAnalytics.Infrastructure.Data;
 using SmartMailAnalytics.Infrastructure.Repositories.MailCategoryRepositories;
@@ -13,6 +14,9 @@ using SmartMailAnalytics.Infrastructure.Repositories.UserRepositories;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+builder.Services.AddSingleton<RabbitMqPublisher>();
+builder.Services.AddHostedService<RabbitMqListenerService>();
 
 // CORS Configuration
 builder.Services.AddCors(options =>

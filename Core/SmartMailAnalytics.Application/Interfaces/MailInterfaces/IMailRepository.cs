@@ -10,11 +10,12 @@ namespace SmartMailAnalytics.Application.Interfaces.MailInterfaces
 {
     public interface IMailRepository
     {
-        Task<List<Mail>> GetMailsAsync(int page = 1);
+        Task<List<ResultMailDto>> GetMailsAsync(int page = 1);
         Task<Mail> GetByIdAsync(int id);
         Task AddMailAsync(Mail mail);
         Task UpdateMailAsync(Mail mail);
         Task DeleteMailAsync(int id);
-        Task<List<Mail>> GetMailsByFilterAsync(ResultMailFilterDto filter);
+        Task<List<ResultMailDto>> GetMailsByFilterAsync(ResultMailFilterDto filter);
+        Task UpdateSpamStatusAsync(int mailId, bool isSpam);
     }
 }

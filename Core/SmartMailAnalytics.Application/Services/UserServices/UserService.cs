@@ -19,9 +19,9 @@ namespace SmartMailAnalytics.Application.Services.UserServices
         }
 
 
-        public async Task<List<ResultUserDto>> GetUsersAsync()
+        public async Task<List<ResultUserDto>> GetUsersAsync(int page = 1)
         {
-            var values = await _userRepository.GetUsersAsync();
+            var values = await _userRepository.GetUsersAsync(page);
             return values.Select(x => new ResultUserDto
             {
                 UserId = x.UserId,

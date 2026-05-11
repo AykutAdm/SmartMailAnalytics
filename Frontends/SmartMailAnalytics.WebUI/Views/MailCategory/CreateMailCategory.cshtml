@@ -1,0 +1,157 @@
+﻿@model CreateMailCategoryDto
+@{
+    ViewData["Title"] = "Yeni kategori";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style>
+    @@import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+    :root {
+        --bg: #0d0f14;
+        --surface: #13161e;
+        --surface-2: #1a1e2a;
+        --border: #252a38;
+        --accent: #4f8ef7;
+        --accent-soft: rgba(79,142,247,0.08);
+        --text: #e2e6f0;
+        --text-sub: #7b849c;
+        --radius: 14px;
+        --radius-sm: 8px;
+    }
+
+    .cat-page {
+        font-family: 'Sora', sans-serif;
+        background: var(--bg);
+        min-height: calc(100vh - 120px);
+        padding: 8px 28px 48px;
+        color: var(--text);
+    }
+
+    .cat-header {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        margin-bottom: 28px;
+        gap: 16px;
+        flex-wrap: wrap;
+    }
+
+    .cat-header-left h1 {
+        font-size: 22px;
+        font-weight: 600;
+        letter-spacing: -0.3px;
+        margin: 0 0 4px;
+        color: var(--text);
+    }
+
+    .cat-header-left p {
+        font-size: 13px;
+        color: var(--text-sub);
+        margin: 0;
+        font-weight: 300;
+    }
+
+    .filter-btn {
+        display: inline-flex;
+        align-items: center;
+        padding: 7px 16px;
+        border-radius: 20px;
+        border: 1px solid var(--border);
+        background: var(--surface);
+        color: var(--text-sub);
+        font-size: 12.5px;
+        font-family: 'Sora', sans-serif;
+        cursor: pointer;
+        transition: all .18s;
+        text-decoration: none;
+        font-weight: 400;
+    }
+
+    .filter-btn:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+        background: var(--accent-soft);
+    }
+
+    .filter-btn--primary {
+        background: var(--accent-soft);
+        border-color: rgba(79,142,247,0.35);
+        color: var(--accent);
+    }
+
+    .cat-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 26px 28px 32px;
+        max-width: 560px;
+    }
+
+    .form-field {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        margin-bottom: 18px;
+    }
+
+    .form-field label {
+        font-size: 11.5px;
+        font-weight: 500;
+        color: var(--text-sub);
+        letter-spacing: 0.4px;
+        text-transform: uppercase;
+    }
+
+    .form-field input {
+        padding: 10px 14px;
+        background: var(--surface-2);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+        color: var(--text);
+        font-size: 13.5px;
+        font-family: 'Sora', sans-serif;
+        outline: none;
+        transition: border-color .18s;
+        box-sizing: border-box;
+    }
+
+    .form-field input:focus {
+        border-color: var(--accent);
+    }
+
+    .form-actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 8px;
+        flex-wrap: wrap;
+    }
+
+    .form-actions button[type="submit"] {
+        border: none;
+        cursor: pointer;
+    }
+</style>
+
+<div class="cat-page">
+    <div class="cat-header">
+        <div class="cat-header-left">
+            <h1>Yeni mail kategorisi</h1>
+            <p>Örn. İş, Tanıtım, Sosyal</p>
+        </div>
+        <a asp-action="MailCategoryList" class="filter-btn">← Liste</a>
+    </div>
+
+    <div class="cat-card">
+        <form asp-action="CreateMailCategory" method="post">
+            <div class="form-field">
+                <label asp-for="Name">Kategori adı</label>
+                <input asp-for="Name" type="text" autocomplete="off" />
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="filter-btn filter-btn--primary">Kaydet</button>
+                <a asp-action="MailCategoryList" class="filter-btn">İptal</a>
+            </div>
+        </form>
+    </div>
+</div>

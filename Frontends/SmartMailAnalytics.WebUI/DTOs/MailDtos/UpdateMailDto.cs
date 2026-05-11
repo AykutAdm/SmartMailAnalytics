@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SmartMailAnalytics.Application.DTOs.MailDtos
+﻿namespace SmartMailAnalytics.WebUI.DTOs.MailDtos
 {
-    public class ResultMailDto
+    public class UpdateMailDto
     {
         public int MailId { get; set; }
         public int UserId { get; set; }
         public int MailCategoryId { get; set; }
-        public string MailCategoryName { get; set; }
         public string SenderEmail { get; set; }
         public string ReceiverEmail { get; set; }
         public string Subject { get; set; }

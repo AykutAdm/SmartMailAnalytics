@@ -23,7 +23,9 @@ namespace SmartMailAnalytics.Infrastructure.Repositories.MailRepositories
 
         public async Task AddMailAsync(Mail mail)
         {
-            string query = "INSERT INTO Mails (UserId, MailCategoryId, SenderEmail, ReceiverEmail, Subject, Content, IsSpam, CreatedDate) VALUES (@UserId, @MailCategoryId, @SenderEmail, @ReceiverEmail, @Subject, @Content, @IsSpam, @CreatedDate)";
+            string query = @"INSERT INTO Mails (UserId, MailCategoryId, SenderEmail, ReceiverEmail, Subject, Content, IsSpam, CreatedDate) 
+                     VALUES (@UserId, @MailCategoryId, @SenderEmail, @ReceiverEmail, @Subject, @Content, @IsSpam, @CreatedDate);
+                     SELECT CAST(SCOPE_IDENTITY() AS INT)";
             var parameters = new DynamicParameters();
             parameters.Add("@UserId", mail.UserId);
             parameters.Add("@MailCategoryId", mail.MailCategoryId);
@@ -34,7 +36,7 @@ namespace SmartMailAnalytics.Infrastructure.Repositories.MailRepositories
             parameters.Add("@IsSpam", mail.IsSpam);
             parameters.Add("@CreatedDate", mail.CreatedDate);
             var connection = _connectionFactory.CreateConnection();
-            await connection.ExecuteAsync(query, parameters);
+            mail.MailId = await connection.ExecuteScalarAsync<int>(query, parameters);
         }
 
         public async Task DeleteMailAsync(int id)
@@ -58,20 +60,24 @@ namespace SmartMailAnalytics.Infrastructure.Repositories.MailRepositories
             }
         }
 
-        public async Task<List<Mail>> GetMailsAsync(int page = 1)
+        public async Task<List<ResultMailDto>> GetMailsAsync(int page = 1)
         {
             var offset = (page - 1) * 12;
-            string query = "SELECT * FROM Mails ORDER BY CreatedDate DESC OFFSET @Offset ROWS FETCH NEXT 12 ROWS ONLY";
+            string query = @"SELECT m.MailId, m.UserId, m.MailCategoryId, m.SenderEmail, m.ReceiverEmail, m.Subject, m.Content, m.IsSpam, m.CreatedDate,
+                     c.Name AS MailCategoryName
+                     FROM Mails m
+                     LEFT JOIN MailCategories c ON c.MailCategoryId = m.MailCategoryId
+                     ORDER BY m.CreatedDate DESC OFFSET @Offset ROWS FETCH NEXT 12 ROWS ONLY";
             var parameters = new DynamicParameters();
             parameters.Add("@Offset", offset);
             using (var connection = _connectionFactory.CreateConnection())
             {
-                var values = await connection.QueryAsync<Mail>(query, parameters);
+                var values = await connection.QueryAsync<ResultMailDto>(query, parameters);
                 return values.ToList();
             }
         }
 
-        public async Task<List<Mail>> GetMailsByFilterAsync(ResultMailFilterDto filter)
+        public async Task<List<ResultMailDto>> GetMailsByFilterAsync(ResultMailFilterDto filter)
         {
             var offset = (filter.Page - 1) * 12;
             var parameters = new DynamicParameters();
@@ -80,15 +86,18 @@ namespace SmartMailAnalytics.Infrastructure.Repositories.MailRepositories
             parameters.Add("@Subject", filter.Subject);
             parameters.Add("@IsSpam", filter.IsSpam);
 
-            string query = @"SELECT * FROM Mails 
-                     WHERE (@SenderEmail IS NULL OR SenderEmail LIKE @SenderEmail)
-                     AND (@Subject IS NULL OR Subject LIKE @Subject)
-                     AND (@IsSpam IS NULL OR IsSpam = @IsSpam)
-                     ORDER BY CreatedDate DESC
+            string query = @"SELECT m.MailId, m.UserId, m.MailCategoryId, m.SenderEmail, m.ReceiverEmail, m.Subject, m.Content, m.IsSpam, m.CreatedDate,
+                     c.Name AS MailCategoryName
+                     FROM Mails m
+                     LEFT JOIN MailCategories c ON c.MailCategoryId = m.MailCategoryId
+                     WHERE (@SenderEmail IS NULL OR m.SenderEmail LIKE @SenderEmail)
+                     AND (@Subject IS NULL OR m.Subject LIKE @Subject)
+                     AND (@IsSpam IS NULL OR m.IsSpam = @IsSpam)
+                     ORDER BY m.CreatedDate DESC
                      OFFSET @Offset ROWS FETCH NEXT 12 ROWS ONLY";
 
             using var connection = _connectionFactory.CreateConnection();
-            var values = await connection.QueryAsync<Mail>(query, parameters);
+            var values = await connection.QueryAsync<ResultMailDto>(query, parameters);
             return values.ToList();
         }
 
@@ -109,6 +118,16 @@ namespace SmartMailAnalytics.Infrastructure.Repositories.MailRepositories
             {
                 await connection.ExecuteAsync(query, parameters);
             }
+        }
+
+        public async Task UpdateSpamStatusAsync(int mailId, bool isSpam)
+        {
+            string query = "UPDATE Mails SET IsSpam = @IsSpam WHERE MailId = @MailId";
+            var parameters = new DynamicParameters();
+            parameters.Add("@IsSpam", isSpam);
+            parameters.Add("@MailId", mailId);
+            using var connection = _connectionFactory.CreateConnection();
+            await connection.ExecuteAsync(query, parameters);
         }
     }
 }

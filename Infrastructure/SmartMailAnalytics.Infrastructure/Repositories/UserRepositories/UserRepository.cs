@@ -50,12 +50,15 @@ namespace SmartMailAnalytics.Infrastructure.Repositories.UserRepositories
             }
         }
 
-        public async Task<List<User>> GetUsersAsync()
+        public async Task<List<User>> GetUsersAsync(int page = 1)
         {
-            string query = "Select * From Users";
+            var offset = (page - 1) * 12;
+            string query = "SELECT * FROM Users ORDER BY UserId DESC OFFSET @Offset ROWS FETCH NEXT 12 ROWS ONLY";
+            var parameters = new DynamicParameters();
+            parameters.Add("@Offset", offset);
             using (var connection = _connectionFactory.CreateConnection())
             {
-                var values = await connection.QueryAsync<User>(query);
+                var values = await connection.QueryAsync<User>(query, parameters);
                 return values.ToList();
             }
         }

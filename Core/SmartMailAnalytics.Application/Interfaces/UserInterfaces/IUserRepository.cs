@@ -9,7 +9,7 @@ namespace SmartMailAnalytics.Application.Interfaces.UserInterfaces
 {
     public interface IUserRepository
     {
-        Task<List<User>> GetUsersAsync();
+        Task<List<User>> GetUsersAsync(int page = 1);
         Task<User> GetByIdAsync(int id);
         Task AddUserAsync(User user);
         Task UpdateUserAsync(User user);
